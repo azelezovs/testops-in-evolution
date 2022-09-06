@@ -1,1 +1,15 @@
 # testops-in-evolution
+
+## 1 Setting the scene  
+QA engineers in Evolution have been dealing with testing for a long time. Manual or automation was a step in the development lifecycle done by a siloed team with their tools, frameworks and approaches. The tests were stored and executed from a separate repository, providing mostly reactive feedback to code changes, as defects were likely to be found only after new features were merged into the shared repository. This extended-release cycle required more iterations to fix and retest issues and prepare new functionality for the release.  
+In a highly competitive environment such as the Gaming industry, the more time it takes to release new games (or fix issues), the more significant the Risk of losing the attraction or trust of the Customer.
+
+## 2 What needed to be done and why  
+To make the release process faster and more reliable, we needed to make tests to find issues before the new code is merged, shortening the feedback loop and increasing reliability by not allowing lousy code to reach the environment. We also could not allow running all the tests for each Merge Request, so it required us to build a system that would run only the tests for the code affected by changes. This would not be possible without erasing the boundaries between our teams (Dev, QA and SRE).
+
+## 3 Actions taken  
+In collaboration with the Dev team, we have placed our tests as close to the code being tested as possible. For that, we also had to leap from using Java (popular in the QA department) to TypeScript, making it easier to incorporate those tests into the existing build system. To make our tests more proactive, we worked with the SRE department to include them in the Merge Request pipeline, making it possible to merge code only if tests passed. To avoid dependency on many tests execution, we designed an orchestrator that identifies which tests should be run and triggers jobs accordingly. This orchestrator is entirely written and maintained by QA engineers.
+
+## 4 The impact  
+Nowadays, thanks to the Continuous Delivery pipeline, we can move any commit related to Frontend straight to production. Of course, it takes more than described above, and there are multiple rounds of testing and deployments, but it all starts with the Continuous Integration pipeline upon Merge Request opening. While the Dev team is still focused on their tasks, they also know how and what tests would be executed and propose various improvements to increase test performance in the pipeline, for instance. Part of the pipeline that is related to testing is provisioned by QA engineers, leaving the SRE team more time to work on the production environment support.  
+The synergy between Dev, QA and SRE team made us look at each other’s work from a different perspective and influenced how we approach new ideas at work, giving us more possibilities to work on the design and implement cross-department solutions for development, testing and delivery of new functionality.
